@@ -15,8 +15,10 @@ if [ -f "/etc/apt/sources.list.d/git-core-ppa-trusty.list" ]; then
     add-apt-repository ppa:git-core/ppa
 fi
 
-if [ -f "/etc/apt/sources.list.d/chris-lea-node_js-trusty.list" ]; then
-    add-apt-repository ppa:chris-lea/node.js
+if [ ! -f "/etc/apt/sources.list.d/nodesource.list" ]; then
+    wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+    echo "deb https://deb.nodesource.com/node_0.12 `lsb_release -sc` main" > /etc/apt/sources.list.d/nodesource.list
+    echo "deb-src https://deb.nodesource.com/node_0.12 `lsb_release -sc` main" >> /etc/apt/sources.list.d/nodesource.list
 fi
 
 apt-get update
